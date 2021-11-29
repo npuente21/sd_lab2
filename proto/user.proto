@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "Lab2/proto";
+
+message RequestInf {
+    string planeta = 1;
+    string ciudad =2;
+    int32 valor =3;
+}
+
+message RequestDel {
+    string planeta = 1;
+    string ciudad = 2;
+}
+
+message ResponseBroker{
+    string address = 1;
+}
+
+message ResponseFulcrum{
+    string vector = 1;
+}
+
+message RequestLeia{
+    string planeta = 1;
+    string ciudad = 2;
+}
+
+message ResponseRebelds{
+    int32 valor = 1;
+    string vector = 2;
+}
+
+service BrokerServices{
+    rpc AddCity (RequestInf) returns (ResponseBroker){}
+    rpc UpdateName (RequestInf) returns (ResponseBroker){}
+    rpc UpdateNumber (RequestInf) returns (ResponseBroker){}
+    rpc DeleteCity (RequestDel) returns (ResponseBroker){}
+    rpc GetNumberRebelds (RequestLeia) returns (ResponseRebelds){}
+}
+
+service FulcramServices {
+    rpc AddCity (RequestInf) returns (ResponseFulcrum){}
+    rpc UpdateName (RequestInf) returns (ResponseFulcrum){}
+    rpc UpdateNumber (RequestInf) returns (ResponseFulcrum){}
+    rpc DeleteCity (RequestDel) returns (ResponseFulcrum){} 
+}
