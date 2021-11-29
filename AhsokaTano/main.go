@@ -52,6 +52,18 @@ func main() {
 				}
 				address_server := r.Address
 				fmt.Println(address_server)
+				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
+				if err != nil {
+					log.Fatalf("Did not connect: %v", err)
+				}
+				defer conn.Close()
+				ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
+				r1, err := ServiceFulcrum.AddCity(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				if err != nil {
+					log.Fatalf("%v", err)
+				}
+				fmt.Printf(r1.GetVector())
+
 			}
 			if elec == 2 {
 				print("Modificar Ciudad")

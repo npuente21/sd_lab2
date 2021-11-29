@@ -41,7 +41,7 @@ service BrokerServices{
     rpc GetNumberRebelds (RequestLeia) returns (ResponseRebelds){}
 }
 
-service FulcramServices {
+service FulcrumServices {
     rpc AddCity (RequestInf) returns (ResponseFulcrum){}
     rpc UpdateName (RequestInf) returns (ResponseFulcrum){}
     rpc UpdateNumber (RequestInf) returns (ResponseFulcrum){}

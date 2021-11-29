@@ -389,7 +389,7 @@ var file_proto_user_proto_rawDesc = []byte{
 	0x67, 0x72, 0x70, 0x63, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4c, 0x65, 0x69, 0x61,
 	0x1a, 0x15, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x52, 0x65, 0x62, 0x65, 0x6c, 0x64, 0x73, 0x22, 0x00, 0x32, 0xf4, 0x01, 0x0a, 0x0f, 0x46, 0x75,
-	0x6c, 0x63, 0x72, 0x61, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x12, 0x34, 0x0a,
+	0x6c, 0x63, 0x72, 0x75, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x12, 0x34, 0x0a,
 	0x07, 0x41, 0x64, 0x64, 0x43, 0x69, 0x74, 0x79, 0x12, 0x10, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e,
 	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x49, 0x6e, 0x66, 0x1a, 0x15, 0x2e, 0x67, 0x72, 0x70,
 	0x63, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x75, 0x6c, 0x63, 0x72, 0x75,
@@ -435,19 +435,19 @@ var file_proto_user_proto_depIdxs = []int32{
 	0, // 2: grpc.BrokerServices.UpdateNumber:input_type -> grpc.RequestInf
 	1, // 3: grpc.BrokerServices.DeleteCity:input_type -> grpc.RequestDel
 	4, // 4: grpc.BrokerServices.GetNumberRebelds:input_type -> grpc.RequestLeia
-	0, // 5: grpc.FulcramServices.AddCity:input_type -> grpc.RequestInf
-	0, // 6: grpc.FulcramServices.UpdateName:input_type -> grpc.RequestInf
-	0, // 7: grpc.FulcramServices.UpdateNumber:input_type -> grpc.RequestInf
-	1, // 8: grpc.FulcramServices.DeleteCity:input_type -> grpc.RequestDel
+	0, // 5: grpc.FulcrumServices.AddCity:input_type -> grpc.RequestInf
+	0, // 6: grpc.FulcrumServices.UpdateName:input_type -> grpc.RequestInf
+	0, // 7: grpc.FulcrumServices.UpdateNumber:input_type -> grpc.RequestInf
+	1, // 8: grpc.FulcrumServices.DeleteCity:input_type -> grpc.RequestDel
 	2, // 9: grpc.BrokerServices.AddCity:output_type -> grpc.ResponseBroker
 	2, // 10: grpc.BrokerServices.UpdateName:output_type -> grpc.ResponseBroker
 	2, // 11: grpc.BrokerServices.UpdateNumber:output_type -> grpc.ResponseBroker
 	2, // 12: grpc.BrokerServices.DeleteCity:output_type -> grpc.ResponseBroker
 	5, // 13: grpc.BrokerServices.GetNumberRebelds:output_type -> grpc.ResponseRebelds
-	3, // 14: grpc.FulcramServices.AddCity:output_type -> grpc.ResponseFulcrum
-	3, // 15: grpc.FulcramServices.UpdateName:output_type -> grpc.ResponseFulcrum
-	3, // 16: grpc.FulcramServices.UpdateNumber:output_type -> grpc.ResponseFulcrum
-	3, // 17: grpc.FulcramServices.DeleteCity:output_type -> grpc.ResponseFulcrum
+	3, // 14: grpc.FulcrumServices.AddCity:output_type -> grpc.ResponseFulcrum
+	3, // 15: grpc.FulcrumServices.UpdateName:output_type -> grpc.ResponseFulcrum
+	3, // 16: grpc.FulcrumServices.UpdateNumber:output_type -> grpc.ResponseFulcrum
+	3, // 17: grpc.FulcrumServices.DeleteCity:output_type -> grpc.ResponseFulcrum
 	9, // [9:18] is the sub-list for method output_type
 	0, // [0:9] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

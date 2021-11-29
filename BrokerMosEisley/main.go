@@ -18,7 +18,7 @@ type BrokerServer struct {
 }
 
 func (s *BrokerServer) AddCity(context.Context, *pb.RequestInf) (*pb.ResponseBroker, error) {
-	return &pb.ResponseBroker{Address: "localhost:4000"}, nil
+	return &pb.ResponseBroker{Address: "localhost:40000"}, nil
 }
 
 func main() {
