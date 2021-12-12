@@ -4,10 +4,16 @@ import (
 	pb "Lab2/proto"
 	"context"
 	"log"
+	"math/rand"
 	"net"
+	"time"
 
 	"google.golang.org/grpc"
 )
+
+//var address_1 = []string{"10.6.40.182:50023", "10.6.40.181:50023", "10.6.40.184:50023"}
+
+var address_1 = []string{"localhost:50023", "localhost:50023", "localhost:50023"}
 
 const (
 	port = ":50000"
@@ -17,8 +23,30 @@ type BrokerServer struct {
 	pb.UnimplementedBrokerServicesServer
 }
 
+func choose_number() int32 {
+	rand.Seed(time.Now().UTC().UnixNano())
+	elec := int32(rand.Intn(3))
+	return elec
+}
+
 func (s *BrokerServer) AddCity(context.Context, *pb.RequestInf) (*pb.ResponseBroker, error) {
-	return &pb.ResponseBroker{Address: "localhost:40000"}, nil
+	add := address_1[choose_number()]
+	return &pb.ResponseBroker{Address: add}, nil
+}
+
+func (s *BrokerServer) UpdateName(context.Context, *pb.RequestInf) (*pb.ResponseBroker, error) {
+	add := address_1[choose_number()]
+	return &pb.ResponseBroker{Address: add}, nil
+}
+
+func (s *BrokerServer) UpdateNumber(context.Context, *pb.RequestInf) (*pb.ResponseBroker, error) {
+	add := address_1[choose_number()]
+	return &pb.ResponseBroker{Address: add}, nil
+}
+
+func (s *BrokerServer) DeleteCity(context.Context, *pb.RequestDel) (*pb.ResponseBroker, error) {
+	add := address_1[choose_number()]
+	return &pb.ResponseBroker{Address: add}, nil
 }
 
 func main() {

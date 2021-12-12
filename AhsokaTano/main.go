@@ -66,10 +66,42 @@ func main() {
 
 			}
 			if elec == 2 {
-				print("Modificar Ciudad")
+				r, err := ServiceClient.UpdateName(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				if err != nil {
+					log.Fatalf("%v", err)
+				}
+				address_server := r.Address
+				fmt.Println(address_server)
+				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
+				if err != nil {
+					log.Fatalf("Did not connect: %v", err)
+				}
+				defer conn.Close()
+				ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
+				r1, err := ServiceFulcrum.UpdateName(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				if err != nil {
+					log.Fatalf("%v", err)
+				}
+				fmt.Printf(r1.GetVector())
 			}
 			if elec == 3 {
-				print("Modificar Valor")
+				r, err := ServiceClient.UpdateNumber(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				if err != nil {
+					log.Fatalf("%v", err)
+				}
+				address_server := r.Address
+				fmt.Println(address_server)
+				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
+				if err != nil {
+					log.Fatalf("Did not connect: %v", err)
+				}
+				defer conn.Close()
+				ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
+				r1, err := ServiceFulcrum.UpdateNumber(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				if err != nil {
+					log.Fatalf("%v", err)
+				}
+				fmt.Printf(r1.GetVector())
 			}
 
 		}
@@ -79,6 +111,23 @@ func main() {
 			fmt.Scanf("%s \n", &planeta)
 			fmt.Printf("Ingrese Ciudad: ")
 			fmt.Scanf("%s \n", &ciudad)
+			r, err := ServiceClient.DeleteCity(context.Background(), &pb.RequestDel{Planeta: planeta, Ciudad: ciudad})
+			if err != nil {
+				log.Fatalf("%v", err)
+			}
+			address_server := r.Address
+			fmt.Println(address_server)
+			conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
+			if err != nil {
+				log.Fatalf("Did not connect: %v", err)
+			}
+			defer conn.Close()
+			ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
+			r1, err := ServiceFulcrum.DeleteCity(context.Background(), &pb.RequestDel{Planeta: planeta, Ciudad: ciudad})
+			if err != nil {
+				log.Fatalf("%v", err)
+			}
+			fmt.Printf(r1.GetVector())
 		}
 		if elec == 5 {
 			estado = "desconectado"
