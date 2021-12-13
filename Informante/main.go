@@ -14,11 +14,20 @@ const (
 	address = "localhost:50000"
 )
 
+var informante = []string{"AHSOKA TANO", "ALMIRANTE THRAWN"}
+
 func main() {
+	choice := 0
 	fmt.Println("-----------------------------------")
-	fmt.Println("BIENVENIDA AHSOKA TANO")
+	fmt.Println("IDENTIFIQUESE")
+	fmt.Println("1.AHOSOKA TANO\n2.ALMIRANTE THRAWN")
+	fmt.Scanf("%d \n", &choice)
+	fmt.Println("-----------------------------------")
+	fmt.Println("-----------------------------------")
+	fmt.Printf("BIENVENIDA/O %s \n", informante[choice-1])
 	fmt.Println("-----------------------------------")
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+
 	if err != nil {
 		log.Fatalf("Did not connect: %v", err)
 	}
@@ -43,7 +52,7 @@ func main() {
 			fmt.Scanf("%s \n", &planeta)
 			fmt.Printf("Ingrese Ciudad: ")
 			fmt.Scanf("%s \n", &ciudad)
-			fmt.Printf("Ingrese catidad de reveldes (0 en caso de no especificar cantidad): ")
+			fmt.Printf("Ingrese catidad de rebeldes (0 en caso de no especificar cantidad): ")
 			fmt.Scanf("%d \n", &valor)
 			if elec == 1 {
 				r, err := ServiceClient.AddCity(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
@@ -51,7 +60,7 @@ func main() {
 					log.Fatalf("%v", err)
 				}
 				address_server := r.Address
-				fmt.Println(address_server)
+				//fmt.Println(address_server)
 				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
 				if err != nil {
 					log.Fatalf("Did not connect: %v", err)
@@ -62,7 +71,9 @@ func main() {
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
-				fmt.Printf(r1.GetVector())
+				if r1 != nil {
+					fmt.Printf("Ciudad añadida \n")
+				}
 
 			}
 			if elec == 2 {
@@ -82,7 +93,9 @@ func main() {
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
-				fmt.Printf(r1.GetVector())
+				if r1 != nil {
+					fmt.Printf("Nombre actualizado \n")
+				}
 			}
 			if elec == 3 {
 				r, err := ServiceClient.UpdateNumber(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
@@ -101,7 +114,9 @@ func main() {
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
-				fmt.Printf(r1.GetVector())
+				if r1 != nil {
+					fmt.Printf("Modificación realizada \n")
+				}
 			}
 
 		}
@@ -127,7 +142,9 @@ func main() {
 			if err != nil {
 				log.Fatalf("%v", err)
 			}
-			fmt.Printf(r1.GetVector())
+			if r1 != nil {
+				fmt.Printf("Ciudad eliminada \n")
+			}
 		}
 		if elec == 5 {
 			estado = "desconectado"
@@ -135,6 +152,6 @@ func main() {
 
 	}
 	fmt.Println("-----------------------------------")
-	fmt.Println("DESCONECTADA")
+	fmt.Println("DESCONECTADA/O")
 	fmt.Println("-----------------------------------")
 }

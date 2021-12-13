@@ -46,4 +46,5 @@ service FulcrumServices {
     rpc UpdateName (RequestInf) returns (ResponseFulcrum){}
     rpc UpdateNumber (RequestInf) returns (ResponseFulcrum){}
     rpc DeleteCity (RequestDel) returns (ResponseFulcrum){} 
+    rpc GetNumberRebelds (RequestLeia) returns (ResponseRebelds){}
 }

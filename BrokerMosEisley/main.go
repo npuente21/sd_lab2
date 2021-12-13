@@ -44,9 +44,21 @@ func (s *BrokerServer) UpdateNumber(context.Context, *pb.RequestInf) (*pb.Respon
 	return &pb.ResponseBroker{Address: add}, nil
 }
 
-func (s *BrokerServer) DeleteCity(context.Context, *pb.RequestDel) (*pb.ResponseBroker, error) {
+func (s *BrokerServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.ResponseBroker, error) {
 	add := address_1[choose_number()]
 	return &pb.ResponseBroker{Address: add}, nil
+}
+
+func (s *BrokerServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia) (*pb.ResponseRebelds, error) {
+	add := address_1[choose_number()]
+	conn, err := grpc.Dial(add, grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("Did not connect: %v", err)
+	}
+	defer conn.Close()
+	Fulcrum := pb.NewFulcrumServicesClient(conn)
+	r, err := Fulcrum.GetNumberRebelds(context.Background(), &pb.RequestLeia{Planeta: in.GetPlaneta(), Ciudad: in.GetCiudad()})
+	return &pb.ResponseRebelds{Valor: r.Valor, Vector: r.Vector}, nil
 }
 
 func main() {

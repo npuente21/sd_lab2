@@ -1,5 +1,5 @@
 # Laboratorio 3 - Sistemas Distribuidos
-# Squid Game
+# Star Wars
 
 ----- Integrantes ----
 * Nicolás Puente      201873618-K

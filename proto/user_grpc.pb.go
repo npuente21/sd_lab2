@@ -252,6 +252,7 @@ type FulcrumServicesClient interface {
 	UpdateName(ctx context.Context, in *RequestInf, opts ...grpc.CallOption) (*ResponseFulcrum, error)
 	UpdateNumber(ctx context.Context, in *RequestInf, opts ...grpc.CallOption) (*ResponseFulcrum, error)
 	DeleteCity(ctx context.Context, in *RequestDel, opts ...grpc.CallOption) (*ResponseFulcrum, error)
+	GetNumberRebelds(ctx context.Context, in *RequestLeia, opts ...grpc.CallOption) (*ResponseRebelds, error)
 }
 
 type fulcrumServicesClient struct {
@@ -298,6 +299,15 @@ func (c *fulcrumServicesClient) DeleteCity(ctx context.Context, in *RequestDel, 
 	return out, nil
 }
 
+func (c *fulcrumServicesClient) GetNumberRebelds(ctx context.Context, in *RequestLeia, opts ...grpc.CallOption) (*ResponseRebelds, error) {
+	out := new(ResponseRebelds)
+	err := c.cc.Invoke(ctx, "/grpc.FulcrumServices/GetNumberRebelds", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FulcrumServicesServer is the server API for FulcrumServices service.
 // All implementations must embed UnimplementedFulcrumServicesServer
 // for forward compatibility
@@ -306,6 +316,7 @@ type FulcrumServicesServer interface {
 	UpdateName(context.Context, *RequestInf) (*ResponseFulcrum, error)
 	UpdateNumber(context.Context, *RequestInf) (*ResponseFulcrum, error)
 	DeleteCity(context.Context, *RequestDel) (*ResponseFulcrum, error)
+	GetNumberRebelds(context.Context, *RequestLeia) (*ResponseRebelds, error)
 	mustEmbedUnimplementedFulcrumServicesServer()
 }
 
@@ -324,6 +335,9 @@ func (UnimplementedFulcrumServicesServer) UpdateNumber(context.Context, *Request
 }
 func (UnimplementedFulcrumServicesServer) DeleteCity(context.Context, *RequestDel) (*ResponseFulcrum, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCity not implemented")
+}
+func (UnimplementedFulcrumServicesServer) GetNumberRebelds(context.Context, *RequestLeia) (*ResponseRebelds, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNumberRebelds not implemented")
 }
 func (UnimplementedFulcrumServicesServer) mustEmbedUnimplementedFulcrumServicesServer() {}
 
@@ -410,6 +424,24 @@ func _FulcrumServices_DeleteCity_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FulcrumServices_GetNumberRebelds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestLeia)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FulcrumServicesServer).GetNumberRebelds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.FulcrumServices/GetNumberRebelds",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FulcrumServicesServer).GetNumberRebelds(ctx, req.(*RequestLeia))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FulcrumServices_ServiceDesc is the grpc.ServiceDesc for FulcrumServices service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -432,6 +464,10 @@ var FulcrumServices_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCity",
 			Handler:    _FulcrumServices_DeleteCity_Handler,
+		},
+		{
+			MethodName: "GetNumberRebelds",
+			Handler:    _FulcrumServices_GetNumberRebelds_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

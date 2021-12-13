@@ -133,6 +133,27 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 	return &pb.ResponseFulcrum{Vector: "OK"}, nil
 }
 
+func (s *FulcrumServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia) (*pb.ResponseRebelds, error) {
+	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	datos := string(Bytes)
+	arr := strings.Split(datos, "\n")
+	for i := 0; i < len(arr); i++ {
+		l := strings.Split(arr[i], " ")
+		if len(l) > 1 {
+			if strings.Compare(l[1], in.GetCiudad()) == 0 {
+				num, _ := strconv.Atoi(l[2])
+				return &pb.ResponseRebelds{Valor: int32(num), Vector: "OK"}, nil
+			}
+
+		}
+	}
+	return &pb.ResponseRebelds{Vector: "OK"}, nil
+}
+
 func main() {
 
 	listner, err := net.Listen("tcp", port)
