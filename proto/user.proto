@@ -33,12 +33,13 @@ message ResponseRebelds{
     string vector = 2;
 }
 
+/*
 message msgStruct{
     string planeta;
     int32 x;
     int32 y;
     int32 z;
-}
+}*/
 
 service BrokerServices{
     rpc AddCity (RequestInf) returns (ResponseBroker){}
@@ -54,5 +55,5 @@ service FulcrumServices {
     rpc UpdateNumber (RequestInf) returns (ResponseFulcrum){}
     rpc DeleteCity (RequestDel) returns (ResponseFulcrum){} 
     rpc GetNumberRebelds (RequestLeia) returns (ResponseRebelds){}
-    rpc conversarServers (requestServer) returns (msgStruct){}
+    //rpc conversarServers (requestServer) returns (msgStruct){}
 }

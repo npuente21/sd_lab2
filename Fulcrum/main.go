@@ -23,12 +23,52 @@ type FulcrumServer struct {
 
 type Reloj struct {
 	namePlanet string
-	x          int
-	y          int
-	z          int
+	x          int32
+	y          int32
+	z          int32
+}
+
+var lista_relojes = []Reloj{}
+
+func actualizarReloj(Planeta string, ip string) {
+	var flag int32 = 0
+
+	for _, reloj := range lista_relojes {
+		if reloj.namePlanet == Planeta {
+			flag = 1
+			if ip == "1" {
+				reloj.x = reloj.x + 1
+			}
+			if ip == "2" {
+				reloj.y = reloj.y + 1
+			}
+			if ip == "4" {
+				reloj.z = reloj.z + 1
+			}
+		}
+	}
+	//planeta no estaba en la lista
+	if flag == 0 {
+		if ip == "1" {
+			reloj := Reloj{namePlanet: Planeta, x: 1, y: 0, z: 0}
+			lista_relojes = append(lista_relojes, reloj)
+		}
+		if ip == "2" {
+			reloj := Reloj{namePlanet: Planeta, x: 0, y: 1, z: 0}
+			lista_relojes = append(lista_relojes, reloj)
+		}
+		if ip == "4" {
+			reloj := Reloj{namePlanet: Planeta, x: 0, y: 0, z: 1}
+			lista_relojes = append(lista_relojes, reloj)
+		}
+
+	}
 }
 
 func RegistroLog(Planeta string, accion string, ciudad string, valor int) {
+	Planeta = Planeta[:len(Planeta)-1]
+	ip := string(Planeta[len(Planeta)-1])
+
 	f, err := os.OpenFile("Fulcrum/"+Planeta+".log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 	if err != nil {
 		log.Fatal(err)
@@ -40,13 +80,15 @@ func RegistroLog(Planeta string, accion string, ciudad string, valor int) {
 		log.Printf("%s %s %s %d", accion, Planeta, ciudad, valor)
 	}
 
+	actualizarReloj(Planeta, ip)
 }
 
 func (s *FulcrumServer) AddCity(ctx context.Context, in *pb.RequestInf) (*pb.ResponseFulcrum, error) {
-	b := []byte(in.GetPlaneta() + " " + in.GetCiudad() + " " + strconv.Itoa(int(in.GetValor())) + "\n")
-	cont, _ := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
+	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	b := []byte(inGetPlaneta + " " + in.GetCiudad() + " " + strconv.Itoa(int(in.GetValor())) + "\n")
+	cont, _ := ioutil.ReadFile("Fulcrum/" + inGetPlaneta + ".txt")
 	cont = append(cont, b...)
-	err := ioutil.WriteFile("Fulcrum/"+in.GetPlaneta()+".txt", cont, 0644)
+	err := ioutil.WriteFile("Fulcrum/"+inGetPlaneta+".txt", cont, 0644)
 	if err != nil {
 		log.Fatalf("Failed to write in File")
 	}
@@ -55,7 +97,8 @@ func (s *FulcrumServer) AddCity(ctx context.Context, in *pb.RequestInf) (*pb.Res
 }
 
 func (s *FulcrumServer) UpdateName(ctx context.Context, in *pb.RequestInf) (*pb.ResponseFulcrum, error) {
-	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
+	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	Bytes, err := ioutil.ReadFile("Fulcrum/" + inGetPlaneta + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -76,7 +119,7 @@ func (s *FulcrumServer) UpdateName(ctx context.Context, in *pb.RequestInf) (*pb.
 
 		}
 	}
-	err = ioutil.WriteFile("Fulcrum/"+in.GetPlaneta()+".txt", aux, 0644)
+	err = ioutil.WriteFile("Fulcrum/"+inGetPlaneta+".txt", aux, 0644)
 	if err != nil {
 		log.Fatalf("Failed to write in File")
 	}
@@ -85,7 +128,8 @@ func (s *FulcrumServer) UpdateName(ctx context.Context, in *pb.RequestInf) (*pb.
 }
 
 func (s *FulcrumServer) UpdateNumber(ctx context.Context, in *pb.RequestInf) (*pb.ResponseFulcrum, error) {
-	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
+	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	Bytes, err := ioutil.ReadFile("Fulcrum/" + inGetPlaneta + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -105,7 +149,7 @@ func (s *FulcrumServer) UpdateNumber(ctx context.Context, in *pb.RequestInf) (*p
 
 		}
 	}
-	err = ioutil.WriteFile("Fulcrum/"+in.GetPlaneta()+".txt", aux, 0644)
+	err = ioutil.WriteFile("Fulcrum/"+inGetPlaneta+".txt", aux, 0644)
 	if err != nil {
 		log.Fatalf("Failed to write in File")
 	}
@@ -114,7 +158,8 @@ func (s *FulcrumServer) UpdateNumber(ctx context.Context, in *pb.RequestInf) (*p
 }
 
 func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.ResponseFulcrum, error) {
-	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
+	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	Bytes, err := ioutil.ReadFile("Fulcrum/" + inGetPlaneta + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -131,7 +176,7 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 			}
 		}
 	}
-	err = ioutil.WriteFile("Fulcrum/"+in.GetPlaneta()+".txt", aux, 0644)
+	err = ioutil.WriteFile("Fulcrum/"+inGetPlaneta+".txt", aux, 0644)
 	if err != nil {
 		log.Fatalf("Failed to write in File")
 	}
@@ -140,7 +185,8 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 }
 
 func (s *FulcrumServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia) (*pb.ResponseRebelds, error) {
-	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
+	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	Bytes, err := ioutil.ReadFile("Fulcrum/" + inGetPlaneta + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -178,4 +224,5 @@ func main() {
 	if err = grpcServer.Serve(listner); err != nil {
 		log.Fatalf("Failed to listen on port 50023: %v", err)
 	}
+
 }

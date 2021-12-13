@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 
 	"google.golang.org/grpc"
 )
@@ -54,20 +55,22 @@ func main() {
 			fmt.Scanf("%s \n", &ciudad)
 			fmt.Printf("Ingrese catidad de rebeldes (0 en caso de no especificar cantidad): ")
 			fmt.Scanf("%d \n", &valor)
-			if elec == 1 {
+			if elec == 1 { //addcity
 				r, err := ServiceClient.AddCity(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
 				address_server := r.Address
-				//fmt.Println(address_server)
+				fmt.Println(address_server)
+				ip := strings.Split(address_server, ":")[0] //info para modificar reloj en x, y o z
+				ip = string(ip[len(ip)-1])                  //same as above
 				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
 				if err != nil {
 					log.Fatalf("Did not connect: %v", err)
 				}
 				defer conn.Close()
 				ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
-				r1, err := ServiceFulcrum.AddCity(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				r1, err := ServiceFulcrum.AddCity(context.Background(), &pb.RequestInf{Planeta: planeta + ip, Ciudad: ciudad, Valor: int32(valor)})
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
@@ -76,12 +79,14 @@ func main() {
 				}
 
 			}
-			if elec == 2 {
+			if elec == 2 { //updatename
 				r, err := ServiceClient.UpdateName(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
 				address_server := r.Address
+				ip := strings.Split(address_server, ":")[0] //info para modificar reloj en x, y o z
+				ip = string(ip[len(ip)-1])                  //same as above
 				fmt.Println(address_server)
 				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
 				if err != nil {
@@ -89,7 +94,7 @@ func main() {
 				}
 				defer conn.Close()
 				ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
-				r1, err := ServiceFulcrum.UpdateName(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				r1, err := ServiceFulcrum.UpdateName(context.Background(), &pb.RequestInf{Planeta: planeta + ip, Ciudad: ciudad, Valor: int32(valor)})
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
@@ -97,12 +102,14 @@ func main() {
 					fmt.Printf("Nombre actualizado \n")
 				}
 			}
-			if elec == 3 {
+			if elec == 3 { //updatenumber
 				r, err := ServiceClient.UpdateNumber(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
 				address_server := r.Address
+				ip := strings.Split(address_server, ":")[0] //info para modificar reloj en x, y o z
+				ip = string(ip[len(ip)-1])                  //same as above
 				fmt.Println(address_server)
 				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
 				if err != nil {
@@ -110,7 +117,7 @@ func main() {
 				}
 				defer conn.Close()
 				ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
-				r1, err := ServiceFulcrum.UpdateNumber(context.Background(), &pb.RequestInf{Planeta: planeta, Ciudad: ciudad, Valor: int32(valor)})
+				r1, err := ServiceFulcrum.UpdateNumber(context.Background(), &pb.RequestInf{Planeta: planeta + ip, Ciudad: ciudad, Valor: int32(valor)})
 				if err != nil {
 					log.Fatalf("%v", err)
 				}
@@ -132,13 +139,15 @@ func main() {
 			}
 			address_server := r.Address
 			fmt.Println(address_server)
+			ip := strings.Split(address_server, ":")[0] //info para modificar reloj en x, y o z
+			ip = string(ip[len(ip)-1])                  //same as above
 			conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())
 			if err != nil {
 				log.Fatalf("Did not connect: %v", err)
 			}
 			defer conn.Close()
 			ServiceFulcrum := pb.NewFulcrumServicesClient(conn)
-			r1, err := ServiceFulcrum.DeleteCity(context.Background(), &pb.RequestDel{Planeta: planeta, Ciudad: ciudad})
+			r1, err := ServiceFulcrum.DeleteCity(context.Background(), &pb.RequestDel{Planeta: planeta + ip, Ciudad: ciudad})
 			if err != nil {
 				log.Fatalf("%v", err)
 			}

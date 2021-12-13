@@ -2,3 +2,8 @@ Tierra Santiago 3
 Tierra Lima 4
 Tierra Paz 3
 Tierra Rio 3
+Tierra Conce 3
+Tierra Talca 3
+Tierra Paine 3
+Tierra Buin 3
+Tierra Linderos 3
