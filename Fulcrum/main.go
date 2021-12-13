@@ -21,13 +21,19 @@ type FulcrumServer struct {
 	pb.UnimplementedFulcrumServicesServer
 }
 
+type Reloj struct {
+	namePlanet string
+	x          int
+	y          int
+	z          int
+}
+
 func RegistroLog(Planeta string, accion string, ciudad string, valor int) {
 	f, err := os.OpenFile("Fulcrum/"+Planeta+".log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
-	log.SetOutput(f)
 	if valor == 0 || accion == "DeleteCity" {
 		log.Printf("%s %s %s", accion, Planeta, ciudad)
 	} else {
@@ -134,6 +140,10 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 }
 
 func main() {
+
+	//lista_relojes := []Reloj{}
+	//reloj := Reloj{namePlanet: "asd", x: 0, y: 0, z: 0}
+	//lista_relojes = append(lista_relojes, reloj)
 
 	listner, err := net.Listen("tcp", port)
 	if err != nil {
