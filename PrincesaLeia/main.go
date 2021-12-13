@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	//address = "10.6.40.181:50000"
+	//address = "10.6.40.183:50000"
 	address = "localhost:50000"
 )
 
