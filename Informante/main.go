@@ -61,7 +61,7 @@ func main() {
 					log.Fatalf("%v", err)
 				}
 				address_server := r.Address
-				fmt.Println(address_server)
+				//fmt.Println(address_server)
 				ip := strings.Split(address_server, ":")[0] //info para modificar reloj en x, y o z
 				ip = string(ip[len(ip)-1])                  //same as above
 				conn, err := grpc.Dial(address_server, grpc.WithInsecure(), grpc.WithBlock())

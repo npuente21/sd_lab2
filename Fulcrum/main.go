@@ -3,6 +3,7 @@ package main
 import (
 	pb "Lab2/proto"
 	"context"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
@@ -32,7 +33,10 @@ var lista_relojes = []Reloj{}
 
 func actualizarReloj(Planeta string, ip string) {
 	var flag int32 = 0
-
+	fmt.Println("--actreloj--")
+	fmt.Println(Planeta)
+	fmt.Println(ip)
+	fmt.Println("----")
 	for _, reloj := range lista_relojes {
 		if reloj.namePlanet == Planeta {
 			flag = 1
@@ -63,11 +67,18 @@ func actualizarReloj(Planeta string, ip string) {
 		}
 
 	}
+	//probando local
+	if ip == "t" {
+		reloj := Reloj{namePlanet: Planeta, x: -1, y: -1, z: -1}
+		lista_relojes = append(lista_relojes, reloj)
+	}
+	fmt.Println(lista_relojes)
 }
 
 func RegistroLog(Planeta string, accion string, ciudad string, valor int) {
-	Planeta = Planeta[:len(Planeta)-1]
 	ip := string(Planeta[len(Planeta)-1])
+	Planeta = Planeta[:len(Planeta)-1]
+	//fmt.Println("PLANETA " + Planeta)
 
 	f, err := os.OpenFile("Fulcrum/"+Planeta+".log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 	if err != nil {
@@ -81,6 +92,7 @@ func RegistroLog(Planeta string, accion string, ciudad string, valor int) {
 	}
 
 	actualizarReloj(Planeta, ip)
+	//fmt.Println(lista_relojes)
 }
 
 func (s *FulcrumServer) AddCity(ctx context.Context, in *pb.RequestInf) (*pb.ResponseFulcrum, error) {
