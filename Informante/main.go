@@ -26,7 +26,7 @@ func main() {
 	fmt.Println("-----------------------------------")
 	fmt.Printf("BIENVENIDA/O %s \n", informante[choice-1])
 	fmt.Println("-----------------------------------")
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock()) //conexion informante-broker
 
 	if err != nil {
 		log.Fatalf("Did not connect: %v", err)
