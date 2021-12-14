@@ -218,7 +218,7 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 }
 
 func (s *FulcrumServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia) (*pb.ResponseRebelds, error) {
-	//inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
 	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
 	if err != nil {
 		log.Fatal(err)
@@ -231,12 +231,16 @@ func (s *FulcrumServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia
 		if len(l) > 1 {
 			if strings.Compare(l[1], in.GetCiudad()) == 0 {
 				num, _ := strconv.Atoi(l[2])
-				return &pb.ResponseRebelds{Valor: int32(num), Vector: "OK"}, nil
+				reloj_aux := encontrarVector(inGetPlaneta)
+				vector := "(" + strconv.Itoa(int(reloj_aux.x)) + ", " + strconv.Itoa(int(reloj_aux.y)) + ", " + strconv.Itoa(int(reloj_aux.z)) + ")"
+				return &pb.ResponseRebelds{Valor: int32(num), Vector: vector}, nil
 			}
 
 		}
 	}
-	return &pb.ResponseRebelds{Vector: "OK"}, nil
+	reloj_aux := encontrarVector(inGetPlaneta)
+	vector := "(" + strconv.Itoa(int(reloj_aux.x)) + ", " + strconv.Itoa(int(reloj_aux.y)) + ", " + strconv.Itoa(int(reloj_aux.z)) + ")"
+	return &pb.ResponseRebelds{Vector: vector}, nil
 }
 
 func main() {
