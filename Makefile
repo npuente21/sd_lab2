@@ -1,5 +1,5 @@
 informantx:
-	go run informante/main.go
+	go run Informante/main.go
 broker:
 	go run BrokerMosEisley/main.go
 fulcrum:

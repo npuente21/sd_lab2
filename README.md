@@ -1,7 +1,7 @@
 # Laboratorio 3 - Sistemas Distribuidos
 # Star Wars
 
------ Integrantes ----
+# Integrantes
 * Nicolás Puente      201873618-K
 * Francisco Andrades  201673584-4
 * Lucas Díaz Aravena  201673524-0
@@ -35,38 +35,38 @@ Importante: Los informantes y la Princesa Leia deben ejecutarse luego de haber i
 Abrir 2 consolas .
 
 (i)
-cd sd_lab2
-make Fulcrum
+´cd sd_lab2
+make fulcrum´
 
 (ii)
-cd sd_lab2
-make Leia
+´cd sd_lab2
+make Leia´
 
 * dist43
 Abrir 1 consola.
 
 (i)
-cd sd_lab2
-make broker
+´cd sd_lab2
+make broker´
 
 * dist44
 Abrir 2 consolas.
 
 (i)
-cd sd_lab2
-make fulcrum
+´cd sd_lab2
+make fulcrum´
 
 (ii)
-cd sd_lab2
-make informantx
+´cd sd_lab2
+make informantx´
 
 * dist42
 Abrir 2 consolas.
 
 (i)
-cd sd_lab2
-make Fulcrum
+´cd sd_lab2
+make fulcrum´
 
 (ii)
-cd sd_lab2
-make informantx
+´cd sd_lab2
+make informantx´
