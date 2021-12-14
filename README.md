@@ -37,6 +37,7 @@ Abrir 2 consolas .
 (i)
 cd sd_lab2
 make Fulcrum
+
 (ii)
 cd sd_lab2
 make Leia
