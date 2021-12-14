@@ -74,13 +74,13 @@ make informantx
 Abrir 2 consolas.
 
 (i)
-´´´
+```
 cd sd_lab2
 make fulcrum
-´´´
+```
 
 (ii)
-´´´
+```
 cd sd_lab2
 make informantx
-´´´
+```
