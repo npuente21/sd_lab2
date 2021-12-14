@@ -31,6 +31,15 @@ type Reloj struct {
 
 var lista_relojes = []Reloj{}
 
+func encontrarVector(Planeta string) Reloj {
+	for _, reloj := range lista_relojes {
+		if reloj.namePlanet == Planeta {
+			return reloj
+		}
+	}
+	return Reloj{namePlanet: "notfound", x: -1, y: -1, z: -1}
+}
+
 func actualizarReloj(Planeta string, ip string) {
 	var flag int32 = 0
 	fmt.Println("--actreloj--")
@@ -105,7 +114,10 @@ func (s *FulcrumServer) AddCity(ctx context.Context, in *pb.RequestInf) (*pb.Res
 		log.Fatalf("Failed to write in File")
 	}
 	RegistroLog(in.GetPlaneta(), "AddCity", in.GetCiudad(), int(in.GetValor()))
-	return &pb.ResponseFulcrum{Vector: "OK"}, nil
+	reloj_aux := encontrarVector(inGetPlaneta)
+	vector := "(" + strconv.Itoa(int(reloj_aux.x)) + strconv.Itoa(int(reloj_aux.y)) + strconv.Itoa(int(reloj_aux.z)) + ")"
+	return &pb.ResponseFulcrum{Vector: vector}, nil
+	//return &pb.ResponseFulcrum{Vector: "OK"}, nil
 }
 
 func (s *FulcrumServer) UpdateName(ctx context.Context, in *pb.RequestInf) (*pb.ResponseFulcrum, error) {
@@ -136,7 +148,10 @@ func (s *FulcrumServer) UpdateName(ctx context.Context, in *pb.RequestInf) (*pb.
 		log.Fatalf("Failed to write in File")
 	}
 	RegistroLog(in.GetPlaneta(), "UpdateName", in.GetCiudad(), int(in.GetValor()))
-	return &pb.ResponseFulcrum{Vector: "OK"}, nil
+	reloj_aux := encontrarVector(inGetPlaneta)
+	vector := "(" + strconv.Itoa(int(reloj_aux.x)) + ", " + strconv.Itoa(int(reloj_aux.y)) + ", " + strconv.Itoa(int(reloj_aux.z)) + ")"
+	return &pb.ResponseFulcrum{Vector: vector}, nil
+	//return &pb.ResponseFulcrum{Vector: "OK"}, nil
 }
 
 func (s *FulcrumServer) UpdateNumber(ctx context.Context, in *pb.RequestInf) (*pb.ResponseFulcrum, error) {
@@ -166,7 +181,10 @@ func (s *FulcrumServer) UpdateNumber(ctx context.Context, in *pb.RequestInf) (*p
 		log.Fatalf("Failed to write in File")
 	}
 	RegistroLog(in.GetPlaneta(), "UpdateNumber", in.GetCiudad(), int(in.GetValor()))
-	return &pb.ResponseFulcrum{Vector: "OK"}, nil
+	reloj_aux := encontrarVector(inGetPlaneta)
+	vector := "(" + strconv.Itoa(int(reloj_aux.x)) + ", " + strconv.Itoa(int(reloj_aux.y)) + ", " + strconv.Itoa(int(reloj_aux.z)) + ")"
+	return &pb.ResponseFulcrum{Vector: vector}, nil
+	//return &pb.ResponseFulcrum{Vector: "OK"}, nil
 }
 
 func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.ResponseFulcrum, error) {
@@ -193,7 +211,10 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 		log.Fatalf("Failed to write in File")
 	}
 	RegistroLog(in.GetPlaneta(), "DeleteCity", in.GetCiudad(), 0)
-	return &pb.ResponseFulcrum{Vector: "OK"}, nil
+	reloj_aux := encontrarVector(inGetPlaneta)
+	vector := "(" + strconv.Itoa(int(reloj_aux.x)) + ", " + strconv.Itoa(int(reloj_aux.y)) + ", " + strconv.Itoa(int(reloj_aux.z)) + ")"
+	return &pb.ResponseFulcrum{Vector: vector}, nil
+	//return &pb.ResponseFulcrum{Vector: "OK"}, nil
 }
 
 func (s *FulcrumServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia) (*pb.ResponseRebelds, error) {
