@@ -11,9 +11,9 @@ import (
 	"google.golang.org/grpc"
 )
 
-//var address_1 = []string{"10.6.40.181:50023", "10.6.40.182:50023", "10.6.40.184:50023"}
+var address_1 = []string{"10.6.40.181:50023", "10.6.40.182:50023", "10.6.40.184:50023"}
 
-var address_1 = []string{"localhost:50023", "localhost:50023", "localhost:50023"}
+//var address_1 = []string{"localhost:50023", "localhost:50023", "localhost:50023"}
 
 const (
 	port = ":50000"
