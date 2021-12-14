@@ -35,40 +35,40 @@ Importante: Los informantes y la Princesa Leia deben ejecutarse luego de haber i
 Abrir 2 consolas .
 
 (i)
-´´´
+```
 cd sd_lab2
 make fulcrum
-´´´
+```
 
 (ii)
-´´´
+```
 cd sd_lab2
 make Leia
-´´´
+```
 
 * dist43
 Abrir 1 consola.
 
 (i)
-´´´
+```
 cd sd_lab2
 make broker
-´´´
+```
 
 * dist44
 Abrir 2 consolas.
 
 (i)
-´´´
+```
 cd sd_lab2
 make fulcrum
-´´´
+```
 
 (ii)
-´´´
+```
 cd sd_lab2
 make informantx
-´´´
+```
 
 * dist42
 Abrir 2 consolas.
