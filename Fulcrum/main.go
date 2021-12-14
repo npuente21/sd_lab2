@@ -218,8 +218,8 @@ func (s *FulcrumServer) DeleteCity(ctx context.Context, in *pb.RequestDel) (*pb.
 }
 
 func (s *FulcrumServer) GetNumberRebelds(ctx context.Context, in *pb.RequestLeia) (*pb.ResponseRebelds, error) {
-	inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
-	Bytes, err := ioutil.ReadFile("Fulcrum/" + inGetPlaneta + ".txt")
+	//inGetPlaneta := in.GetPlaneta()[:len(in.GetPlaneta())-1]
+	Bytes, err := ioutil.ReadFile("Fulcrum/" + in.GetPlaneta() + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}
